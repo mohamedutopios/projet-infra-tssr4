@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><h2 id</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="projet-infrastructure-hybride--mise-en-place-et-gestion-compl%C3%A8te-dune-infrastructure-hybride">Projet Infrastructure Hybride : Mise en place et gestion complète d’une infrastructure hybride</h2>
+<h3 id="contexte-d%C3%A9taill%C3%A9">Contexte détaillé :</h3>
+<p>Le groupe de formation professionnelle <strong>EduForma</strong> possède deux centres principaux :</p>
+<ul>
+<li><strong>Paris (siège)</strong> : héberge les services informatiques centraux, l'équipe IT, les services administratifs et RH, les infrastructures critiques (AD, DNS, GLPI, WSUS, portail web interne).</li>
+<li><strong>Lyon (antenne régionale)</strong> : accueille un pôle formateurs, un support pédagogique et un accès distant aux services centraux de Paris. Cependant, Lyon dispose aussi de ressources locales (serveur DHCP, DNS secondaire, GLPI local pour les incidents de proximité, RDS pour accès aux ressources pédagogiques).</li>
+</ul>
+<p>Chaque site dispose de son propre serveur physique avec VMware ESXi 6.7 installé. Les deux sites sont interconnectés via un <strong>VPN site-à-site sécurisé</strong> et doivent partager une partie des ressources tout en maintenant une indépendance en cas de rupture du lien VPN. L’objectif est de <strong>simuler la mise en production d’un SI hybride, résilient et automatisé</strong>, intégrant des OS Windows Server 2022 ou 2019 ou 2019 et Ubuntu Server 22.04 LTS ou 20.04, ainsi que la supervision, la sécurité et l’automatisation de l’administration.
+En plus des explication et des détails, ci-dessous, vous disposez d'un schéma qui illustre l'infrastructure à construire.</p>
+<p><img src="schema-projet-infra.png"> </img></p>
+<hr>
+<h2 id="plan-dadressage-ip"><strong>Plan d’adressage IP:</strong></h2>
+<ul>
+<li><strong>VLAN 10 (Gestion)</strong> : <code>10.10.10.0/24</code></li>
+<li><strong>VLAN 20 (Utilisateurs)</strong> : <code>10.20.20.0/24</code></li>
+<li><strong>VLAN 30 (DMZ)</strong> : <code>10.30.30.0/24</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Site</th>
+<th>Serveur</th>
+<th>IP</th>
+<th>Rôle principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paris</td>
+<td>pfSense LAN</td>
+<td><code>10.10.10.1</code></td>
+<td>Firewall, VPN, Proxy</td>
+</tr>
+<tr>
+<td>Paris</td>
+<td>SRV-AD-01</td>
+<td><code>10.10.10.10</code></td>
+<td>Windows Server 2022 ou 2019 : AD, DNS, DHCP, WDS</td>
+</tr>
+<tr>
+<td>Paris</td>
+<td>SRV-WSUS-01</td>
+<td><code>10.10.10.11</code></td>
+<td>Windows Server 2022 ou 2019 : WSUS</td>
+</tr>
+<tr>
+<td>Paris</td>
+<td>SRV-MONITOR-01</td>
+<td><code>10.10.10.15</code></td>
+<td>Ubuntu Server : Supervision SNMP via GLPI/FusionInventory</td>
+</tr>
+<tr>
+<td>Paris</td>
+<td>SRV-GLPI-01</td>
+<td><code>10.30.30.20</code></td>
+<td>Ubuntu Server : Apache, MySQL, GLPI, FusionInventory (DMZ)</td>
+</tr>
+<tr>
+<td>Lyon</td>
+<td>pfSense LAN</td>
+<td><code>10.10.10.101</code></td>
+<td>Firewall, VPN</td>
+</tr>
+<tr>
+<td>Lyon</td>
+<td>SRV-DNS-02</td>
+<td><code>10.10.10.110</code></td>
+<td>Ubuntu Server : DNS secondaire, DHCP</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="vms-%C3%A0-cr%C3%A9er-sur-chaque-site"><strong>VMs à créer sur chaque site</strong> :</h2>
+<h3 id="paris-7-vms"><strong>Paris (7 VMs)</strong></h3>
+<ol>
+<li><strong>SRV-AD-01</strong> – Windows Server 2022 ou 2019 – Contrôleur de domaine, DNS, DHCP, WDS</li>
+<li><strong>SRV-GLPI-01</strong> – Ubuntu Server – Apache, MySQL, GLPI, FusionInventory (DMZ)</li>
+<li><strong>SRV-WSUS-01</strong> – Windows Server 2022 ou 2019 – Serveur WSUS</li>
+<li><strong>SRV-FICHIERS-01</strong> – Windows Server 2022 ou 2019 – Partage réseau + DFS</li>
+<li><strong>SRV-PFSENSE-01</strong> – pfSense – Firewall, VPN, Proxy</li>
+<li><strong>SRV-RDS-01</strong> – Windows Server 2022 ou 2019 – Bureau à distance</li>
+<li><strong>SRV-MONITOR-01</strong> – Ubuntu Server – Supervision SNMP centralisée avec GLPI/FusionInventory</li>
+</ol>
+<h3 id="lyon-5-vms"><strong>Lyon (5 VMs)</strong></h3>
+<ol>
+<li><strong>SRV-DNS-02</strong> – Ubuntu Server – DNS secondaire, DHCP</li>
+<li><strong>SRV-GLPI-02</strong> – Ubuntu Server – GLPI local en redondance (DMZ)</li>
+<li><strong>SRV-PFSENSE-02</strong> – pfSense – Firewall, VPN</li>
+<li><strong>SRV-FICHIERS-02</strong> – Windows Server 2022 ou 2019 – Réplication DFS</li>
+<li><strong>SRV-RDS-02</strong> – Windows Server 2022 ou 2019 – Bureau à distance</li>
+</ol>
+<hr>
+<h2 id="objectifs">Objectifs :</h2>
+<ul>
+<li>Mettre en œuvre une architecture réseau hybride multisite</li>
+<li>Virtualiser des infrastructures avec VMware ESXi</li>
+<li>Déployer Active Directory, DNS, DHCP, WSUS, GLPI, RDS</li>
+<li>Implémenter les services DHCP, DNS, SSH sous Linux</li>
+<li>Assurer l’interconnexion, la haute disponibilité et la sécurité avec pfSense et VPN</li>
+<li>Automatiser l’administration avec PowerShell et Bash</li>
+<li>Superviser avec GLPI, SNMP, WMI, agents FusionInventory</li>
+<li>Déployer des postes clients en réseau via WDS/MDT</li>
+</ul>
+<hr>
+<h2 id="d%C3%A9roul%C3%A9-d%C3%A9taill%C3%A9">Déroulé détaillé :</h2>
+<h2 id="phase-1--d%C3%A9ploiement-de-la-virtualisation-et-des-fondations-r%C3%A9seau">Phase 1 : Déploiement de la virtualisation et des fondations réseau</h2>
+<h4 id="1-installation-desxi-67-sur-les-serveurs-physiques-de-paris-et-lyon">1. Installation d'ESXi 6.7 sur les serveurs physiques de Paris et Lyon</h4>
+<ul>
+<li>
+<p>Téléchargement et vérification de l’image ISO VMware ESXi 6.7</p>
+</li>
+<li>
+<p>Installation interactive ESXi sur chaque serveur :</p>
+<ul>
+<li>
+<p>Configuration des disques locaux</p>
+</li>
+<li>
+<p>Définition des mots de passe root sécurisés</p>
+</li>
+<li>
+<p>Paramétrage réseau statique des hyperviseurs ESXi :</p>
+<ul>
+<li>Paris-ESXi : IP <code>10.10.10.5/24</code>, Gateway : <code>10.10.10.1</code></li>
+<li>Lyon-ESXi : IP <code>10.10.10.105/24</code>, Gateway : <code>10.10.10.101</code></li>
+</ul>
+</li>
+<li>
+<p>Configuration DNS (temporaire via IP statique locale, ex. 8.8.8.8)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-configuration-initiale-des-hyperviseurs-via-interface-web-esxi">2. Configuration initiale des hyperviseurs via interface web ESXi</h4>
+<ul>
+<li>Connexion à l'interface web (https://IP_ESXI) depuis un poste admin</li>
+<li>Activation des licences ESXi (évaluation 60 jours)</li>
+<li>Vérification des ressources matérielles (CPU, RAM, Stockage)</li>
+</ul>
+<h4 id="3-cr%C3%A9ation-des-vswitch-et-port-groups-sur-chaque-esxi">3. Création des vSwitch et Port Groups sur chaque ESXi</h4>
+<ul>
+<li>
+<p>Connexion à l’interface web ESXi, section <strong>Networking</strong></p>
+</li>
+<li>
+<p><strong>Création des vSwitch suivants</strong> sur chaque site :</p>
+<ul>
+<li><code>vSwitch0</code> : Management &amp; VM Network</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuration des Port Groups (VLAN)</strong> :</p>
+<ul>
+<li>VLAN 10 (Gestion) - ID VLAN : 10</li>
+<li>VLAN 20 (Utilisateurs) - ID VLAN : 20</li>
+<li>VLAN 30 (DMZ) - ID VLAN : 30</li>
+</ul>
+</li>
+<li>
+<p>Validation des configurations (uplinks physiques, interfaces réseau)</p>
+</li>
+</ul>
+<h4 id="4-cr%C3%A9ation-et-configuration-initiale-des-vms-selon-liste">4. Création et configuration initiale des VMs selon liste</h4>
+<ul>
+<li>
+<p>Création des VM avec les paramètres suivants :</p>
+<ul>
+<li><strong>Windows Server 2022 ou 2019 :</strong> 2 vCPU, 4 Go RAM, 60 Go HDD</li>
+<li><strong>Ubuntu Server 22.04 ou 20.04:</strong> 2 vCPU, 2 Go RAM, 40 Go HDD</li>
+<li><strong>pfSense :</strong> 2 vCPU, 2 Go RAM, 20 Go HDD, deux cartes réseau virtuelles (LAN/WAN)</li>
+</ul>
+</li>
+<li>
+<p>Assignation correcte des VMs aux Port Groups (selon VLAN prévu)</p>
+</li>
+<li>
+<p>Installation des systèmes d’exploitation à partir des ISO :</p>
+<ul>
+<li>Windows Server 2022 ou 2019 (ISO officielle)</li>
+<li>Ubuntu Server 22.04 LTS ou 20.04 (ISO officielle)</li>
+<li>pfSense Community Edition 2.7 (ISO officielle)</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-configuration-ip-initiale-et-installation-de-pfsense">5. Configuration IP initiale et installation de pfSense</h4>
+<ul>
+<li>
+<p>Détail des configurations IP pour les interfaces pfSense :</p>
+<ul>
+<li>Paris : WAN dynamique ou IP publique simulée (ex. DHCP virtuel), LAN : <code>10.10.10.1/24</code></li>
+<li>Lyon : WAN dynamique ou IP publique simulée, LAN : <code>10.10.10.101/24</code></li>
+</ul>
+</li>
+<li>
+<p>Configuration du routage inter-VLAN dans pfSense :</p>
+<ul>
+<li>Activation du service DHCP temporaire pour les tests</li>
+<li>Vérification du routage entre VLANs (ping et traceroute)</li>
+</ul>
+</li>
+<li>
+<p>Configuration basique de la sécurité (firewall) :</p>
+<ul>
+<li>Politique initiale : Autoriser ICMP (ping), SSH, HTTP(S) pour administration uniquement.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="phase-2--services-windows---ad-dns-dhcp-gpo">Phase 2 : Services Windows - AD, DNS, DHCP, GPO</h2>
+<h4 id="1-installation-et-configuration-initiale-de-windows-server-2022-ou-2019-srv-ad-01">1. Installation et configuration initiale de Windows Server 2022 ou 2019 (SRV-AD-01)</h4>
+<ul>
+<li>Démarrage VM SRV-AD-01, installation interactive Windows Server 2022 ou 2019 Standard (avec interface graphique)</li>
+<li>Paramétrage réseau initial (IP statique : <code>10.10.10.10/24</code>, DNS : <code>127.0.0.1</code>, Gateway : <code>10.10.10.1</code>)</li>
+<li>Configuration des mises à jour Windows (initiale rapide, configuration complète au Jour 4 via WSUS)</li>
+</ul>
+<h4 id="2-installation-et-promotion-du-contr%C3%B4leur-de-domaine-active-directory-ad-ds">2. Installation et promotion du contrôleur de domaine Active Directory (AD DS)</h4>
+<ul>
+<li>
+<p>Installation du rôle <strong>Active Directory Domain Services (AD DS)</strong> depuis le Gestionnaire de Serveur</p>
+</li>
+<li>
+<p>Promotion du serveur comme contrôleur de domaine :</p>
+<ul>
+<li>Domaine à créer : <code>eduforma.local</code></li>
+<li>Niveau fonctionnel : Windows Server 2022 ou 2019</li>
+<li>Définition du mot de passe administrateur de récupération Active Directory (DRS Password)</li>
+</ul>
+</li>
+<li>
+<p>Redémarrage et validation du bon fonctionnement du domaine</p>
+</li>
+</ul>
+<h4 id="3-installation-et-configuration-int%C3%A9gr%C3%A9e-du-service-dns-sur-ad-ds">3. Installation et configuration intégrée du service DNS sur AD DS</h4>
+<ul>
+<li>Vérification automatique du rôle DNS installé par défaut lors de la promotion AD</li>
+<li>Configuration des redirecteurs DNS vers un DNS externe public (8.8.8.8, 1.1.1.1)</li>
+<li>Création manuelle des enregistrements A (SRV-AD-01, autres VMs clés comme SRV-WSUS-01, SRV-GLPI-01)</li>
+<li>Validation DNS (nslookup, ping FQDN des VM)</li>
+</ul>
+<h4 id="4-installation-et-configuration-d%C3%A9taill%C3%A9e-du-serveur-dhcp-avec-r%C3%A9servations">4. Installation et configuration détaillée du serveur DHCP avec réservations</h4>
+<ul>
+<li>
+<p>Installation du rôle DHCP via Gestionnaire de Serveur</p>
+</li>
+<li>
+<p>Création d'une étendue DHCP :</p>
+<ul>
+<li>Plage DHCP : <code>10.20.20.50 – 10.20.20.150</code> (VLAN 20 utilisateurs)</li>
+<li>Options DHCP standards : Passerelle (<code>10.20.20.1</code>), DNS (<code>10.10.10.10</code>), domaine (<code>eduforma.local</code>)</li>
+</ul>
+</li>
+<li>
+<p>Configuration des réservations DHCP statiques pour les VMs clés et postes administratifs :</p>
+<ul>
+<li>Exemples : <code>PC-ADMIN-01 : 10.20.20.51</code>, <code>PC-TECH-02 : 10.20.20.52</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="5-structuration-dactive-directory--cr%C3%A9ation-des-ous-utilisateurs-groupes">5. Structuration d’Active Directory : création des OUs, utilisateurs, groupes</h4>
+<ul>
+<li>
+<p>Création des Unités Organisationnelles (OUs) :</p>
+<ul>
+<li><code>OU_Utilisateurs</code>, <code>OU_Administrateurs</code>, <code>OU_Formateurs</code>, <code>OU_Techniciens</code></li>
+</ul>
+</li>
+<li>
+<p>Création des groupes d’utilisateurs selon la méthode Microsoft AGDLP :</p>
+<ul>
+<li>Groupes globaux (<code>G_Formateurs</code>, <code>G_Tech</code>, <code>G_Admins</code>, <code>G_RH</code>)</li>
+<li>Groupes de domaine locaux pour gestion des ressources (<code>DL_Access_GLP</code>, <code>DL_RDS_Users</code>, etc.)</li>
+</ul>
+</li>
+<li>
+<p>Création d’utilisateurs tests :</p>
+<ul>
+<li>Exemple : <code>admin.paris</code>, <code>tech.lyon</code>, <code>formateur1</code>, etc.</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-cr%C3%A9ation-et-configuration-des-gpo-strat%C3%A9gies-de-groupe">6. Création et configuration des GPO (Stratégies de Groupe)</h4>
+<ul>
+<li>
+<p>Création de GPO sur les OUs appropriées :</p>
+<ul>
+<li>Exemple concret : <code>GPO_Sécurité_Password</code> : expiration 60j, complexité forte.</li>
+<li><code>GPO_Mappage_disques_réseau</code> : Montage automatique lecteur réseau via DFS</li>
+<li><code>GPO_Paramètres_RDS</code> : Paramétrage de sessions RDP (déconnexion après 30min inactivité, etc.)</li>
+</ul>
+</li>
+<li>
+<p>Validation des GPO (commande <code>gpupdate /force</code>, vérification via <code>rsop.msc</code>)</p>
+</li>
+</ul>
+<h4 id="7-tests-dint%C3%A9gration-des-postes-clients-windows-au-domaine-ad">7. Tests d’intégration des postes clients Windows au domaine AD</h4>
+<ul>
+<li>Joindre un poste Windows 10 ou 11 de test au domaine <code>eduforma.local</code></li>
+<li>Vérifier attribution IP via DHCP, bonne résolution DNS</li>
+<li>Tester les ouvertures de session avec utilisateurs AD créés précédemment</li>
+<li>Vérification de l'application correcte des GPO sur les postes clients (lecteur réseau, sécurité des sessions)</li>
+</ul>
+<hr>
+<h2 id="phase-3--services-linux---dhcp-dns-ssh-scripts-bash">Phase 3 : Services Linux - DHCP, DNS, SSH, Scripts Bash</h2>
+<h4 id="1-installation-et-configuration-initiale-dubuntu-server-2204-lts-srv-dns-02-%C3%A0-lyon">1. Installation et configuration initiale d’Ubuntu Server 22.04 LTS (SRV-DNS-02 à Lyon)</h4>
+<ul>
+<li>
+<p>Installation interactive depuis l'ISO officielle Ubuntu Server 22.04 LTS</p>
+</li>
+<li>
+<p>Configuration réseau initiale :</p>
+<ul>
+<li>IP statique : <code>10.10.10.110/24</code></li>
+<li>Gateway : <code>10.10.10.101</code> (pfSense Lyon)</li>
+<li>DNS principal : <code>10.10.10.10</code> (DNS primaire Paris)</li>
+</ul>
+</li>
+<li>
+<p>Mise à jour complète du serveur (<code>sudo apt update &amp;&amp; sudo apt upgrade</code>)</p>
+</li>
+</ul>
+<h4 id="2-installation-et-configuration-du-service-dns-secondaire-bind9">2. Installation et configuration du service DNS secondaire (Bind9)</h4>
+<ul>
+<li>Installation Bind9 :</li>
+</ul>
+<pre class="hljs"><code><div>sudo apt install bind9 bind9utils dnsutils
+</div></code></pre>
+<ul>
+<li>
+<p>Configuration DNS secondaire :</p>
+<ul>
+<li>
+<p>Fichier <code>/etc/bind/named.conf.options</code> :</p>
+<ul>
+<li>Définir forwarder vers DNS Paris (<code>10.10.10.10</code>) et DNS public (<code>8.8.8.8</code>)</li>
+</ul>
+</li>
+<li>
+<p>Fichier <code>/etc/bind/named.conf.local</code> :</p>
+<ul>
+<li>Ajouter une zone secondaire pour le domaine <code>eduforma.local</code></li>
+<li>Synchronisation avec le serveur primaire DNS Paris (<code>allow-transfer</code> côté serveur primaire)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Redémarrage et vérification du bon fonctionnement (<code>dig SRV-AD-01.eduforma.local @localhost</code>)</p>
+</li>
+</ul>
+<h4 id="3-installation-et-configuration-du-serveur-dhcp-linux-isc-dhcp-server">3. Installation et configuration du serveur DHCP Linux (ISC-DHCP-Server)</h4>
+<ul>
+<li>Installation :</li>
+</ul>
+<pre class="hljs"><code><div>sudo apt install isc-dhcp-server
+</div></code></pre>
+<ul>
+<li>
+<p>Configuration du fichier <code>/etc/dhcp/dhcpd.conf</code> :</p>
+<ul>
+<li>
+<p>Étendue DHCP Lyon : <code>10.20.20.151 à 10.20.20.200</code></p>
+</li>
+<li>
+<p>Options DHCP : passerelle (<code>10.20.20.101</code>), DNS (<code>10.10.10.110</code> et <code>10.10.10.10</code>), domaine (<code>eduforma.local</code>)</p>
+</li>
+<li>
+<p>Réservation IP pour postes administratifs locaux :</p>
+<ul>
+<li>Exemple : <code>PC-LYON-ADM-01 : 10.20.20.152</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Activation du service DHCP :</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>sudo systemctl restart isc-dhcp-server
+sudo systemctl <span class="hljs-built_in">enable</span> isc-dhcp-server
+</div></code></pre>
+<ul>
+<li>Tests d’attribution DHCP (poste client ou VM test)</li>
+</ul>
+<h4 id="4-installation-et-s%C3%A9curisation-du-service-ssh">4. Installation et sécurisation du service SSH</h4>
+<ul>
+<li>Vérification ou installation du service SSH :</li>
+</ul>
+<pre class="hljs"><code><div>sudo apt install openssh-server
+</div></code></pre>
+<ul>
+<li>
+<p>Sécurisation SSH (modification <code>/etc/ssh/sshd_config</code>) :</p>
+<ul>
+<li>Désactivation connexion root : <code>PermitRootLogin no</code></li>
+<li>Restriction utilisateurs autorisés : <code>AllowUsers adminlyon</code></li>
+<li>Authentification par clé RSA uniquement (<code>PasswordAuthentication no</code>)</li>
+</ul>
+</li>
+<li>
+<p>Génération de clé RSA (depuis un poste admin) et copie vers SRV-DNS-02 via <code>ssh-copy-id</code> :</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>ssh-keygen -t rsa -b 4096
+ssh-copy-id adminlyon@10.10.10.110
+</div></code></pre>
+<ul>
+<li>Validation connexion SSH sécurisée par clé RSA (<code>ssh adminlyon@10.10.10.110</code>)</li>
+</ul>
+<h4 id="5-cr%C3%A9ation-de-scripts-bash-dautomatisation-et-dadministration-syst%C3%A8me">5. Création de scripts Bash d’automatisation et d’administration système</h4>
+<p><strong>A. Script de sauvegarde automatique quotidienne</strong></p>
+<ul>
+<li>Création du script : <code>/opt/scripts/backup_daily.sh</code></li>
+<li>Sauvegarde dossiers : <code>/etc</code>, <code>/var/log</code>, <code>/home</code></li>
+<li>Destination : <code>/mnt/backups</code> (montage réseau DFS via CIFS sur SRV-FICHIERS-02)</li>
+<li>Configuration du script via cron (<code>/etc/crontab</code>) :</li>
+</ul>
+<pre class="hljs"><code><div>0 1 * * * root /opt/scripts/backup_daily.sh
+</div></code></pre>
+<p><strong>B. Script de scan réseau local avec Nmap et rapport d’uptime</strong></p>
+<ul>
+<li>Script : <code>/opt/scripts/network_scan.sh</code></li>
+<li>Objectif : Vérifier quotidiennement les machines actives sur le VLAN gestion (10.10.10.0/24), récupérer l’uptime et sauvegarder dans <code>/var/log/network_scan.log</code></li>
+<li>Commandes principales :</li>
+</ul>
+<pre class="hljs"><code><div>nmap -sn 10.10.10.0/24 &gt;&gt; /var/<span class="hljs-built_in">log</span>/network_scan.log
+uptime &gt;&gt; /var/<span class="hljs-built_in">log</span>/network_scan.log
+</div></code></pre>
+<ul>
+<li>Planification via cron (quotidien à 7h) :</li>
+</ul>
+<pre class="hljs"><code><div>0 7 * * * root /opt/scripts/network_scan.sh
+</div></code></pre>
+<p><strong>C. Script de surveillance et alertes par email</strong></p>
+<ul>
+<li>Installation d’un serveur mail léger (<code>ssmtp</code>) pour l’envoi d’alertes :</li>
+</ul>
+<pre class="hljs"><code><div>sudo apt install ssmtp mailutils
+</div></code></pre>
+<ul>
+<li>
+<p>Configuration <code>/etc/ssmtp/ssmtp.conf</code> avec SMTP externe (ex : Gmail SMTP)</p>
+</li>
+<li>
+<p>Script : <code>/opt/scripts/check_alert.sh</code></p>
+<ul>
+<li>Surveillance espace disque critique (<code>df -h</code>)</li>
+<li>Surveillance tentatives de connexions SSH échouées (<code>cat /var/log/auth.log | grep &quot;Failed password&quot;</code>)</li>
+<li>Envoi alerte par email si seuil critique dépassé</li>
+</ul>
+</li>
+<li>
+<p>Exemple commande envoi mail depuis le script :</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-built_in">echo</span> <span class="hljs-string">"Alerte sécurité sur SRV-DNS-02 !"</span> | mail -s <span class="hljs-string">"Alerte SSH/DISK SRV-DNS-02"</span> admin@eduforma.com
+</div></code></pre>
+<ul>
+<li>Planification via cron (toutes les heures) :</li>
+</ul>
+<pre class="hljs"><code><div>0 * * * * root /opt/scripts/check_alert.sh
+</div></code></pre>
+<h4 id="6-tests-et-validation">6. Tests et validation</h4>
+<ul>
+<li>
+<p>Vérifier :</p>
+<ul>
+<li>Sauvegarde automatique sur partage réseau DFS</li>
+<li>Fonctionnement correct des scripts Bash (consultation des fichiers log)</li>
+<li>Réception correcte des emails d’alerte envoyés par ssmtp</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="phase-4--automatisation-wsus-glpi-dfs-wds-et-mdt"><strong>Phase 4 : Automatisation, WSUS, GLPI, DFS, WDS et MDT</strong></h2>
+<h4 id="1-installation-et-configuration-du-serveur-wsus-srv-wsus-01">1. Installation et configuration du serveur WSUS (SRV-WSUS-01)</h4>
+<ul>
+<li>
+<p>Installation du rôle WSUS depuis le gestionnaire de serveur Windows Server 2022 ou 2019</p>
+</li>
+<li>
+<p>Création d'un dossier dédié aux mises à jour : <code>D:\WSUS</code></p>
+</li>
+<li>
+<p>Configuration initiale WSUS :</p>
+<ul>
+<li>Synchronisation des mises à jour Microsoft (classification : critiques, sécurité, cumulatives, etc.)</li>
+<li>Planification quotidienne des synchronisations (22h chaque soir)</li>
+</ul>
+</li>
+<li>
+<p>Configuration GPO pour clients WSUS (serveurs et postes clients) :</p>
+<ul>
+<li>Chemin WSUS : <code>http://srv-wsus-01.eduforma.local:8530</code></li>
+</ul>
+</li>
+<li>
+<p>Tests d'intégration :</p>
+<ul>
+<li>Vérification des rapports WSUS d'inventaire postes clients et serveurs intégrés.</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-installation-de-glpi-et-fusioninventory-sur-srv-glpi-01-ubuntu-server-2204">2. Installation de GLPI et FusionInventory sur SRV-GLPI-01 (Ubuntu Server 22.04)</h4>
+<ul>
+<li>Installation prérequis :</li>
+</ul>
+<pre class="hljs"><code><div>sudo apt install apache2 php mariadb-server php-mysql php-curl php-gd php-mbstring php-xml php-ldap php-zip
+</div></code></pre>
+<ul>
+<li>Création base de données et utilisateur dédié pour GLPI :</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> glpi;
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> <span class="hljs-string">'glpiuser'</span>@<span class="hljs-string">'localhost'</span> <span class="hljs-keyword">IDENTIFIED</span> <span class="hljs-keyword">BY</span> <span class="hljs-string">'MotDePasseGLPI'</span>;
+<span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> glpi.* <span class="hljs-keyword">TO</span> <span class="hljs-string">'glpiuser'</span>@<span class="hljs-string">'localhost'</span>;
+<span class="hljs-keyword">FLUSH</span> <span class="hljs-keyword">PRIVILEGES</span>;
+</div></code></pre>
+<ul>
+<li>Installation GLPI :</li>
+</ul>
+<pre class="hljs"><code><div>wget https://github.com/glpi-project/glpi/releases/download/10.0.11/glpi-10.0.11.tgz
+tar -xzf glpi-10.0.11.tgz -C /var/www/html/
+chown -R www-data:www-data /var/www/html/glpi
+</div></code></pre>
+<ul>
+<li>
+<p>Accès GLPI via <code>http://10.30.30.20/glpi</code> et finalisation installation via interface web (choisir BDD créée précédemment)</p>
+</li>
+<li>
+<p>Installation plugin FusionInventory pour GLPI via interface web</p>
+</li>
+<li>
+<p>Installation agents FusionInventory sur postes clients Windows pour remontée automatique inventaire :</p>
+<ul>
+<li>Configuration URL serveur GLPI : <code>http://10.30.30.20/glpi/plugins/fusioninventory/</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="3-configuration-distributed-file-system-dfs-sur-srv-fichiers-01-et-srv-fichiers-02">3. Configuration Distributed File System (DFS) sur SRV-FICHIERS-01 et SRV-FICHIERS-02</h4>
+<ul>
+<li>
+<p>Installation rôle DFS Namespace et DFS Replication via gestionnaire serveur (Windows Server 2022 ou 2019)</p>
+</li>
+<li>
+<p>Création namespace DFS : <code>\\eduforma.local\Partages</code></p>
+</li>
+<li>
+<p>Configuration réplication DFS entre Paris (SRV-FICHIERS-01) et Lyon (SRV-FICHIERS-02) :</p>
+<ul>
+<li>Dossier partagé : <code>\\eduforma.local\Partages\Commun</code></li>
+<li>Vérification réplication en temps réel (création fichiers tests sur chaque site)</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-automatisation-de-la-gestion-utilisateurs-avec-powershell-srv-ad-01">4. Automatisation de la gestion utilisateurs avec PowerShell (SRV-AD-01)</h4>
+<ul>
+<li>
+<p>Création script PowerShell : <code>/scripts/create_ad_users.ps1</code></p>
+</li>
+<li>
+<p>Contenu du script :</p>
+<ul>
+<li>Création utilisateurs en masse depuis fichier CSV (<code>utilisateurs.csv</code>) avec attributs : prénom, nom, OU, groupe AD, mot de passe initial, compte activé</li>
+</ul>
+</li>
+<li>
+<p>Test et validation de création utilisateurs dans AD via script</p>
+</li>
+</ul>
+<h4 id="5-d%C3%A9ploiement-de-postes-clients-via-wds-et-mdt-sur-srv-ad-01">5. Déploiement de postes clients via WDS et MDT sur SRV-AD-01</h4>
+<ul>
+<li>
+<p>Installation et configuration Windows Deployment Services (WDS) :</p>
+<ul>
+<li>Installation rôle WDS depuis gestionnaire serveur</li>
+<li>Configuration initiale : mode intégré à Active Directory</li>
+<li>Création dossier <code>D:\RemoteInstall</code></li>
+<li>Ajout image de démarrage (boot.wim depuis ISO Windows 10/11)</li>
+</ul>
+</li>
+<li>
+<p>Installation et configuration de Microsoft Deployment Toolkit (MDT) :</p>
+<ul>
+<li>Installation MDT (version actuelle : MDT 8456)</li>
+<li>Création Deployment Share : <code>D:\MDTDeploymentShare</code></li>
+</ul>
+</li>
+<li>
+<p>Création et capture d'image WIM personnalisée :</p>
+<ul>
+<li>Création séquence de tâches MDT (Windows 10 ou 11)</li>
+<li>Installation manuelle sur VM référence</li>
+<li>Personnalisation de Windows (logiciels de base, personnalisation)</li>
+<li>Capture image WIM avec MDT via Sysprep et LiteTouchPE_x64.iso</li>
+</ul>
+</li>
+<li>
+<p>Configuration déploiement automatisé avec fichiers de réponse <code>unattend.xml</code> :</p>
+<ul>
+<li>Définition automatique paramètres régionaux, comptes utilisateurs locaux, jonction automatique domaine</li>
+</ul>
+</li>
+<li>
+<p>Configuration DHCP options PXE sur SRV-AD-01 (DHCP option 66 Boot Server : <code>10.10.10.10</code> ; option 67 : <code>boot\x64\wdsnbp.com</code>)</p>
+</li>
+<li>
+<p>Tests déploiement de poste via PXE boot avec WDS/MDT :</p>
+<ul>
+<li>Vérification bon déroulement séquence tâches MDT</li>
+<li>Vérification intégration automatique poste au domaine AD (<code>eduforma.local</code>)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="phase-5--s%C3%A9curit%C3%A9-supervision-et-sc%C3%A9nario-de-bascule"><strong>Phase 5 : Sécurité, supervision et scénario de bascule</strong></h2>
+<h4 id="1-configuration-dun-vpn-ipsec-site-%C3%A0-site-entre-paris-et-lyon-via-pfsense">1. Configuration d’un VPN IPsec site-à-site entre Paris et Lyon via pfSense</h4>
+<ul>
+<li>
+<p>Connexion à l’interface web pfSense des deux sites</p>
+</li>
+<li>
+<p>Configuration VPN IPsec côté Paris (Phase 1 et Phase 2) :</p>
+<ul>
+<li>Mode : Tunnel IPv4</li>
+<li>Interface WAN</li>
+<li>Authentification : PSK (clé partagée complexe générée aléatoirement)</li>
+<li>Chiffrement : AES-256, Authentification : SHA256, DH Group : 14</li>
+<li>Réseau distant (Lyon) : <code>10.10.10.0/24</code>, <code>10.20.20.0/24</code>, <code>10.30.30.0/24</code></li>
+</ul>
+</li>
+<li>
+<p>Configuration VPN IPsec côté Lyon (symétrique à Paris)</p>
+</li>
+<li>
+<p>Vérification état connexion VPN (<code>Status &gt; IPsec</code>), tests connectivité inter-site (ping, traceroute)</p>
+</li>
+</ul>
+<h4 id="2-mise-en-place-dun-proxy-squid-s%C3%A9curis%C3%A9-sur-pfsense-paris">2. Mise en place d’un proxy Squid sécurisé sur pfSense (Paris)</h4>
+<ul>
+<li>
+<p>Installation du paquet Squid depuis le gestionnaire de paquets pfSense</p>
+</li>
+<li>
+<p>Configuration Squid en mode proxy transparent :</p>
+<ul>
+<li>
+<p>Activation transparente sur VLAN Utilisateurs (10.20.20.0/24)</p>
+</li>
+<li>
+<p>Activation logs Squid (<code>/var/squid/log/access.log</code>)</p>
+</li>
+<li>
+<p>Configuration ACL de sécurité :</p>
+<ul>
+<li>Blocage de domaines non autorisés (ex. réseaux sociaux)</li>
+<li>Limitation des accès HTTP/HTTPS à certaines catégories (blacklist intégrée)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Tests de filtrage proxy sur poste client :</p>
+<ul>
+<li>Vérifier navigation sécurisée et blocage effectif (message proxy Squid)</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-installation-et-configuration-snmp-pour-supervision-via-glpi-srv-monitor-01">3. Installation et configuration SNMP pour supervision via GLPI (SRV-MONITOR-01)</h4>
+<ul>
+<li>
+<p>Installation agents SNMP sur les serveurs Windows (via fonctionnalités Windows) et Linux :</p>
+<ul>
+<li>Linux : <code>sudo apt install snmpd</code></li>
+</ul>
+</li>
+<li>
+<p>Configuration SNMP :</p>
+<ul>
+<li>Communauté : <code>EduFormaSNMP</code></li>
+<li>Version SNMP : <code>v2c</code></li>
+<li>Autoriser le serveur GLPI : <code>10.10.10.15</code> (SRV-MONITOR-01)</li>
+</ul>
+</li>
+<li>
+<p>Activation SNMP sur pfSense (interface web pfSense → Services → SNMP) :</p>
+<ul>
+<li>Communauté : <code>EduFormaSNMP</code></li>
+<li>Autoriser : <code>10.10.10.15</code></li>
+</ul>
+</li>
+<li>
+<p>Installation GLPI/FusionInventory sur <code>SRV-MONITOR-01</code> (<code>10.10.10.15</code>)</p>
+</li>
+<li>
+<p>Configuration GLPI/FusionInventory :</p>
+<ul>
+<li>
+<p>Activation du module SNMP</p>
+</li>
+<li>
+<p>Tâche de découverte réseau SNMP :</p>
+<ul>
+<li>Plages IP : VLAN Gestion (<code>10.10.10.0/24</code>, <code>10.10.20.0/24</code>), VLAN Utilisateurs (<code>10.20.20.0/24</code>, <code>10.20.30.0/24</code>), VLAN DMZ (<code>10.30.30.0/24</code>, <code>10.30.40.0/24</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Validation inventaire et remontée informations SNMP dans GLPI :</p>
+<ul>
+<li>CPU, RAM, stockage, disponibilité (uptime), etc.</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-simulation-et-gestion-dincident--panne-dns-primaire-paris">4. Simulation et gestion d’incident : panne DNS primaire (Paris)</h4>
+<ul>
+<li>
+<p>Scénario de panne simulée :</p>
+<ul>
+<li>Arrêt contrôlé du service DNS sur SRV-AD-01 (simulation panne DNS primaire)</li>
+</ul>
+</li>
+<li>
+<p>Validation bascule automatique vers DNS secondaire (SRV-DNS-02 à Lyon) :</p>
+<ul>
+<li>Tests immédiats de résolution DNS depuis postes clients (nslookup, ping noms FQDN des serveurs critiques)</li>
+<li>Vérification log DNS secondaire (<code>/var/log/syslog</code> Bind9)</li>
+</ul>
+</li>
+<li>
+<p>Identification et gestion de l’incident :</p>
+<ul>
+<li>
+<p>Diagnostic rapide panne DNS primaire (logs événements Windows Server)</p>
+</li>
+<li>
+<p>Rédaction rapport incident :</p>
+<ul>
+<li>Identification cause probable (arrêt service DNS)</li>
+<li>Actions correctives immédiates (redémarrage service DNS primaire)</li>
+<li>Validation retour en service normal DNS primaire</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Validation retour en fonctionnement nominal des résolutions DNS via SRV-AD-01 après rétablissement :</p>
+<ul>
+<li>Vérification poste client (flush DNS cache, retest nslookup)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="livrables-attendus">Livrables attendus :</h2>
+<ul>
+<li>Documentation technique complète (Plan IP, schéma topologique, configurations)</li>
+<li>Scripts PowerShell et Bash commentés</li>
+<li>Captures d’écran de configurations clés</li>
+<li>Rapport de tests de bascule et de supervision</li>
+</ul>
+<p><strong>Évaluation finale :</strong>
+Présentation technique (30 min) devant le formateur :</p>
+<ul>
+<li>Démonstration de la topologie déployée et supervision live</li>
+<li>Démonstration du VPN et de la résilience réseau</li>
+<li>Déploiement d’un poste via PXE avec WDS/MDT</li>
+<li>Analyse d’un incident simulé avec solution apportée</li>
+</ul>
+
+</body>
+</html>
