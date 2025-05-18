@@ -1,0 +1,10 @@
+Liste des VM :
+
+- Ubuntu server : https://mohamed-formation.s3.eu-west-3.amazonaws.com/ubuntu-22.04.5-live-server-amd64+(2).iso
+ 
+- ESXI : https://mohamed-formation.s3.eu-west-3.amazonaws.com/VMware-vSphere-ESXi-6.7+(1).iso
+ 
+- Windows server 2019 : https://mohamed-formation.s3.eu-west-3.amazonaws.com/windows-server-2019.iso
+ 
+- PfSense : https://mohamed-formation.s3.eu-west-3.amazonaws.com/netgate-installer-amd64.iso.gz
+ 
