@@ -6,5 +6,5 @@ Liste des VM :
  
 - Windows server 2019 : https://mohamed-formation.s3.eu-west-3.amazonaws.com/windows-server-2019.iso
  
-- PfSense : https://mohamed-formation.s3.eu-west-3.amazonaws.com/netgate-installer-amd64.iso.gz
+- PfSense : https://mohamed-formation.s3.eu-west-3.amazonaws.com/netgate-installer-v1.0-RC-amd64-20240919-1435.iso
  
